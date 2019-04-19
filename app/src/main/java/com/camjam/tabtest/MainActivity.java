@@ -1,19 +1,29 @@
 package com.camjam.tabtest;
 
-import android.provider.ContactsContract;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
-import android.view.animation.Animation;
+
+import com.camjam.tabtest.Adapters.RecyclerViewAdapter;
+import com.camjam.tabtest.Adapters.ViewPagerAdapter;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private TabLayout tabLayout;
     private AppBarLayout appBarLayout;
     private ViewPager viewPager;
+
+
+    //Holder Variables for logic
+    //Search Variables
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,9 +40,11 @@ public class MainActivity extends AppCompatActivity {
         // Adapter Setup
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
-
         //Dumb Animation
         ImageView imageView = (ImageView) findViewById(R.id.swordsLogoId);
         imageView.animate().rotation(360).setDuration(3200).start();
+        //Set up Search Fragment activities
+
     }
+
 }

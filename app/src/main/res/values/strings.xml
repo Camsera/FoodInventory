@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">TabTest</string>
+    <string name="Search_for_Food">Search for Food</string>
+    <string name="Search">Search</string>
 </resources>
