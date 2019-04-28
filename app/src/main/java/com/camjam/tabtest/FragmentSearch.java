@@ -1,9 +1,11 @@
 package com.camjam.tabtest;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -31,14 +33,20 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FragmentSearch extends Fragment {
+public class FragmentSearch extends Fragment implements RecyclerViewAdapter.OnNoteListener {
 
     private static final String TAG = "FragmentSearch";
     View view; //Layout viewer
     protected String searchCriteria = "";
     protected String jsonURL = "";
     final List<Food> food_list = new ArrayList<>();
+    protected String label = "";
+    protected String brand = "";
+    protected String food_id = "";
 
+
+
+    private IMainActivity iMainActivity;
 
 
 
@@ -51,7 +59,7 @@ public class FragmentSearch extends Fragment {
         view = inflater.inflate(R.layout.search_fragment_layout, container, false);
         Button searchBtn = (Button) view.findViewById(R.id.searchBtn);
         RecyclerView recyclerView = view.findViewById(R.id.food_viewer);
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(getActivity(), food_list);
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(getActivity(), food_list, this);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
         final EditText searchFoodText = (EditText) view.findViewById(R.id.searchForFoodEditText);
@@ -102,6 +110,8 @@ public class FragmentSearch extends Fragment {
                         foodFood = foodFood.getJSONObject("food");
                         Food foodList = new Food();
                         foodList.setLabel(foodFood.getString("label"));
+                        foodList.setBrand(foodFood.getString("brand"));
+                        foodList.setFood_id(foodFood.getString("foodId"));
                         food_list.add(foodList);
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -119,5 +129,30 @@ public class FragmentSearch extends Fragment {
         });
         requestQueue.add(request);
     }//End jsonRequest
+
+    //This method comes from the recycler view interface
+    //provides an onClick event to each list item
+    @Override
+    public void onNoteClick(int position) {
+        food_list.get(position);
+        Toast.makeText(getActivity(),food_list.get(position).getLabel(), Toast.LENGTH_SHORT).show();
+        label = food_list.get(position).getLabel();
+        brand = food_list.get(position).getBrand();
+        food_id = food_list.get(position).getFood_id();
+        //iMainActivity.setData(R., R.id.editBrand, R.id.food_idView, label, brand, food_id);
+        iMainActivity.inflateFragment(getString(R.string.FragmentAddItem), label, brand, food_id);
+
+
+
+    }
+    //Interface to create a communication link from SearchFrag to MAct to AddFrag
+
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        iMainActivity = (MainActivity) getActivity();
+    }
+
 
 }

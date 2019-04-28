@@ -2,4 +2,14 @@
     <string name="app_name">TabTest</string>
     <string name="Search_for_Food">Search for Food</string>
     <string name="Search">Search</string>
+    <string name="labelView">Label:</string>
+    <string name="classification">Item Type</string>
+    <string name="brandView">Brand</string>
+    <string name="expiration_date">Expiration Date:</string>
+    <string name="Label">label</string>
+    <string name="Brand">brand</string>
+    <string name="FragmentAddItem">FragmentAddItem</string>
+    <string name="quantity">Quantity:</string>
+    <string name="food_id">food_id</string>
+    <string name="add_items_title">Add Your Items To The Shelf</string>
 </resources>
